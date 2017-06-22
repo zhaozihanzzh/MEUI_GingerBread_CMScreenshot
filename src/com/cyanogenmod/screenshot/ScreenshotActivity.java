@@ -1,7 +1,6 @@
 package com.cyanogenmod.screenshot;
 import android.app.*;
 import android.content.*;
-import android.content.pm.*;
 import android.database.*;
 import android.graphics.*;
 import android.graphics.Bitmap.*;
@@ -126,11 +125,11 @@ public class ScreenshotActivity extends Activity
 				else isSuccess= mBitmap.compress(CompressFormat.JPEG,quality, fout);
                 fout.close();
 			    if(!isSuccess) Toast.makeText(this,"保存失败!",Toast.LENGTH_LONG).show();
-				//原来是读取CM设置中存储的SHARE_SCREENSHOT属性。
+				//原来是读取CM设置中存储的SHARE_SCREENSHOT值。
 				final boolean shareScreenshot=(Settings.System.getInt(CR,"share_screenshot",0) == 1 ?true: false);
                 if (shareScreenshot) {
                     Intent intent = new Intent(Intent.ACTION_SEND);
-                    intent.setType("image/"+mFormat);
+                    intent.setType("image/" + mFormat);
                     intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(mScreenshotFile)));
                     startActivity(Intent.createChooser(intent, getString(R.string.share_message)));
                 }
